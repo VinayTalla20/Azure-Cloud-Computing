@@ -1,0 +1,42 @@
+For the all below variables Query Type is "Resource Graph"
+Query to list all cluster in a org 
+// Microsoft.ContainerService/managedClusters
+Resources
+| where type == 'microsoft.containerservice/managedclusters'
+| project name
+
+
+select all subscription in out org
+// Query to get SubcriptionId of Cluster
+Resources
+| where type == 'microsoft.containerservice/managedclusters'
+| where name ==  "$clustername"
+| project subscriptionId
+// Microsoft.ContainerService/managedClusters
+
+
+To print Subcription Name:
+
+resourcecontainers
+ | where type == "microsoft.resources/subscriptions"
+ | where subscriptionId == "$getSubcriptionID"
+ | project name
+ 
+ To print Resource Group:
+ 
+ Resources
+| where type == 'microsoft.containerservice/managedclusters'
+| where name ==  "$clustername"
+| project resourceGroup
+// Microsoft.ContainerService/managedClusters
+
+
+to print Workspace Id:
+
+Resources
+| where type == 'microsoft.operationalinsights/workspaces'
+| where resourceGroup == "$resourcegroup"
+| where subscriptionId == "$getSubcriptionID"
+// Microsoft.ContainerService/managedClusters
+
+
